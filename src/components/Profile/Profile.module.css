@@ -1,0 +1,25 @@
+.Profile {
+    background-color: white;
+}
+
+.rightButtom{
+    text-align: right;
+}
+
+.wrapForB{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    padding: 7px;
+    margin: 5px;
+}
+
+.ScheduleSessionwrapper{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+        padding: 7px;
+        margin: 5px;
+}
+.item {
+    margin: 7px;
+
+}

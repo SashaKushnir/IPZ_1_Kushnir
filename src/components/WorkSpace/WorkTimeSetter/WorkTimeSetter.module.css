@@ -1,0 +1,7 @@
+.WorkTimeSetter{
+    background-color: rgb(189, 221, 188);
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    margin : 10px;
+    padding: 10px;
+}

@@ -1,0 +1,16 @@
+
+.Sessionwrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: wheat ;
+}
+.SessionN{
+    text-align: center;
+}
+.item {
+    padding: 7px;
+    margin: 5px;
+}
+.line {
+    background-color: wheat ;
+}

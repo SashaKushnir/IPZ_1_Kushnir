@@ -1,0 +1,14 @@
+.Task {
+    display: grid;
+    grid-template-columns: 200px 70px 50px;
+}
+input[type=submit]{
+    width: auto;
+    height: auto;
+ }  
+
+
+  
+  
+  
+  

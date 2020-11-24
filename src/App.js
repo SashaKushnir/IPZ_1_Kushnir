@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import './App.css';
+import { BrowserRouter, Route} from 'react-router-dom';
+import Header from './components/Header/Header';
+import Profile from './components/Profile/Profile';
+import Navbar from './components/NavBar/NavBar';
+import Settings from './components/Settings/Settings';
+import WorkSpace from './components/WorkSpace/WorkSpace';
+
+const  App = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+        <div className="App" className ='appwrapper'>
+          
+          <Header className='item'/>
+          <Navbar className='item'/>
+          <div className = 'info'>
+          <Route className='item'  path = '/profile' render ={ () => 
+          <Profile ProfileInfo = {props.state.ProfileInfo} 
+          dispatch = {props.dispatch} />}/>
+
+          <Route className='item'  path = '/workspace' render ={ () => 
+          <WorkSpace WorkSpaceInfo = {props.state.WorkSpaceInfo}
+           dispatch = {props.dispatch}/>}/>
+          <Route className='item' path = '/settings' render = {() =><Settings/>} />
+          </div>
+        </div>
+    </BrowserRouter>
   );
 }
 
