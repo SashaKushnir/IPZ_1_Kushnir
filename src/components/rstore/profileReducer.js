@@ -1,5 +1,5 @@
 /* eslint-disable */
-debugger
+
 const sessions = 'sessions'
 const schedules = 'schedules'
 
@@ -19,7 +19,7 @@ let Profile = {
         {startTime : '08:00', endTime : '19:00', howMuch : '11:00', date : '11.07'},
         {startTime : '08:00', endTime : '19:00', howMuch : '11:00', date : '11.08'}
     ],
-    TotaolWorkTime : {
+    TotalWorkTime : {
         hours : '18',
         minutes : '00',
         seconds : '00'
@@ -38,22 +38,22 @@ window.p = Profile
 
 const ProfileReducer = (ProfileInfo = Profile, action) => {
 
-    debugger
+
     switch (action.type) {
+        
         case sessions :  
-            if( ProfileInfo.hidesession == false)
-            ProfileInfo.hidesession = true
-            else {
-                ProfileInfo.hidesession = false
+            return  {
+                    ...ProfileInfo, 
+                    SeansList  : [...ProfileInfo.SeansList],
+                    hidesession : !ProfileInfo.hidesession
             }
-            return ProfileInfo
         case schedules:
-            if( ProfileInfo.hideschedule == false)
-            ProfileInfo.hideschedule = true
-            else {
-                ProfileInfo.hideschedule = false
+        
+            return  {...ProfileInfo, 
+                WeekSchedule : [...ProfileInfo.WeekSchedule],
+                hideschedule : !ProfileInfo.hideschedule
             }
-            return ProfileInfo
+
         default:
             return ProfileInfo
     }

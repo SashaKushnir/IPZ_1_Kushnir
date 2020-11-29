@@ -4,19 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import rstore from './components/rstore/rstore'
+import {Provider} from 'react-redux'
 
-const toRend = () => {
+
   ReactDOM.render(
     <React.StrictMode>
-      <App state = {rstore.getState()} dispatch = {rstore.dispatch}/>
-    </React.StrictMode>,
+      <Provider store = {rstore}>
+      <App/>
+      </Provider>
+    </React.StrictMode>
+    ,
     document.getElementById('root')
   );
-}
 
-toRend()
 
-rstore.subscribe(toRend)
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

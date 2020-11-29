@@ -8,6 +8,7 @@ const addTask = 'addTask'
 const Edit = 'Edit'
 const deleteTask = 'deleteTask'
 
+
 let WorkSpace = {
     WorkTimeSet: {
         StartTime: {
@@ -61,53 +62,84 @@ let WorkSpace = {
 }
 
 const WorkSpaceInfoReducer = (WorkSpaceInfo = WorkSpace, action) => {
-
+    let WorkSpaceInfoCopy
     debugger
     switch (action.type) {
+        
         case setStartWorkTime:
+            WorkSpaceInfoCopy = {...WorkSpaceInfo,
+             WorkTimeSet : {...WorkSpaceInfo.WorkTimeSet,
+                StartTime : {...WorkSpaceInfo.WorkTimeSet.StartTime}
+            }}
+ 
+            WorkSpaceInfoCopy.WorkTimeSet.StartTime.hours = new Date().getHours()
+            WorkSpaceInfoCopy.WorkTimeSet.StartTime.minutes = new Date().getMinutes()
+            WorkSpaceInfoCopy.WorkTimeSet.StartTime.seconds = new Date().getSeconds()
+            WorkSpaceInfoCopy.WorkTimeSet.startButtomEnable = true
+            WorkSpaceInfoCopy.WorkTimeSet.endButtomEnable = false
+            return   WorkSpaceInfoCopy
             
-            WorkSpaceInfo.WorkTimeSet.StartTime.hours = new Date().getHours()
-            WorkSpaceInfo.WorkTimeSet.StartTime.minutes = new Date().getMinutes()
-            WorkSpaceInfo.WorkTimeSet.StartTime.seconds = new Date().getSeconds()
-            WorkSpaceInfo.WorkTimeSet.startButtomEnable = true
-            WorkSpaceInfo.WorkTimeSet.endButtomEnable = false
-            return WorkSpaceInfo
         case setEndWorkTime:
-            WorkSpaceInfo.WorkTimeSet.EndTime.hours = new Date().getHours()
-            WorkSpaceInfo.WorkTimeSet.EndTime.minutes = new Date().getMinutes()
-            WorkSpaceInfo.WorkTimeSet.EndTime.seconds = new Date().getSeconds()
-            WorkSpaceInfo.WorkTimeSet.WorkingForGetter()
-            WorkSpaceInfo.WorkTimeSet.startButtomEnable = false
-            WorkSpaceInfo.WorkTimeSet.endButtomEnable = true
-            WorkSpaceInfo.WorkTimeSet.resetButtom = false
-            return WorkSpaceInfo
+            WorkSpaceInfoCopy = {...WorkSpaceInfo,
+                WorkTimeSet : {...WorkSpaceInfo.WorkTimeSet}
+            }
+
+            WorkSpaceInfoCopy.WorkTimeSet.EndTime.hours = new Date().getHours()
+            WorkSpaceInfoCopy.WorkTimeSet.EndTime.minutes = new Date().getMinutes()
+            WorkSpaceInfoCopy.WorkTimeSet.EndTime.seconds = new Date().getSeconds()
+            WorkSpaceInfoCopy.WorkTimeSet.WorkingForGetter()
+            WorkSpaceInfoCopy.WorkTimeSet.startButtomEnable = false
+            WorkSpaceInfoCopy.WorkTimeSet.endButtomEnable = true
+            WorkSpaceInfoCopy.WorkTimeSet.resetButtom = false
+            return WorkSpaceInfoCopy
+
         case reset : 
-        WorkSpaceInfo.WorkTimeSet.makeNull()
-            return WorkSpaceInfo
+        WorkSpaceInfoCopy = {...WorkSpaceInfo,
+            WorkTimeSet : {...WorkSpaceInfo.WorkTimeSet}
+        }
+      
+        WorkSpaceInfoCopy.WorkTimeSet.makeNull()
+            return WorkSpaceInfoCopy
+
             case addTask : 
-            WorkSpaceInfo.TaskListSetter.NewTask = action.Task
-            WorkSpaceInfo.TaskListSetter.TaskList.push( WorkSpaceInfo.TaskListSetter.NewTask)
-            WorkSpaceInfo.TaskListSetter.NewTask = ''
-            return WorkSpaceInfo
+            WorkSpaceInfoCopy = {...WorkSpaceInfo,
+            TaskListSetter : {...WorkSpaceInfo.TaskListSetter,
+                TaskList : [...WorkSpaceInfo.TaskListSetter.TaskList]
+            }}
+
+
+            WorkSpaceInfoCopy.TaskListSetter.NewTask = action.Task
+            WorkSpaceInfoCopy.TaskListSetter.TaskList.push( WorkSpaceInfoCopy.TaskListSetter.NewTask)
+            WorkSpaceInfoCopy.TaskListSetter.NewTask = ''
+            return WorkSpaceInfoCopy
+
             case Edit :
-                if(WorkSpaceInfo.TaskListSetter.Hidden == true){
-                    WorkSpaceInfo.TaskListSetter.Hidden = false
-                }
-                else{
-                    WorkSpaceInfo.TaskListSetter.Hidden = true
-                }
-                if (WorkSpaceInfo.TaskListSetter.Value == 'Edit'){
-                    WorkSpaceInfo.TaskListSetter.Value = 'Back' 
-                }
-                else{
-                    WorkSpaceInfo.TaskListSetter.Value = 'Edit'
-                }
-                return WorkSpaceInfo
+                // WorkSpaceInfoCopy = {...WorkSpaceInfo,
+                //     TaskListSetter : {...WorkSpaceInfo.TaskListSetter,
+                //     Hidden : !WorkSpaceInfo.TaskListSetter.Hidden,
+                //     Value : WorkSpaceInfo.TaskListSetter.Value == 'Edit' ? "Back" : 'Edit',
+                //     TaskList : [...WorkSpaceInfo.TaskListSetter.TaskList]
+
+                // }
+                // }
+                WorkSpaceInfoCopy = {...WorkSpaceInfo}
+                WorkSpaceInfoCopy.TaskListSetter = {...WorkSpaceInfo.TaskListSetter}
+                WorkSpaceInfoCopy.TaskListSetter.TaskList = [...WorkSpaceInfo.TaskListSetter.TaskList]
+
+                WorkSpaceInfoCopy.TaskListSetter.Hidden = !WorkSpaceInfo.TaskListSetter.Hidden
+                WorkSpaceInfoCopy.TaskListSetter.Value = WorkSpaceInfo.TaskListSetter.Value == 'Edit' ? "Back" : 'Edit'
+              //  WorkSpaceInfoCopy.TaskListSetter.TaskList = [WorkSpaceInfo.TaskListSetter.TaskList]
+
+
+                return WorkSpaceInfoCopy
             case deleteTask:
-                WorkSpaceInfo.TaskListSetter.TaskList.splice(action.index, 1)
+                WorkSpaceInfoCopy = {...WorkSpaceInfo,
+                    TaskListSetter : {...WorkSpaceInfo.TaskListSetter}
+                }
+               // WorkSpaceInfoCopy.TaskListSetter.TaskList.splice(action.index, 1)
 
 
-                return WorkSpaceInfo
+                return WorkSpaceInfoCopy
         default:
             return WorkSpaceInfo
     }
@@ -122,3 +154,20 @@ export default WorkSpaceInfoReducer
 
 
 
+
+
+           // StartTime : {...WorkSpaceInfo.WorkTimeSet.StartTime},
+            // EndTime : {...WorkSpaceInfo.WorkTimeSet.EndTime},
+            // WorkFor : {...WorkSpaceInfo.WorkTimeSet.WorkFor},
+            // WorkingForGetter : {...WorkSpaceInfo.WorkTimeSet.WorkingForGetter}
+            // },
+            // }
+            // WorkSpaceInfoCopy = {...WorkSpaceInfo}
+            // WorkSpaceInfoCopy.WorkTimeSet = {...WorkSpaceInfo.WorkTimeSet}
+            // WorkSpaceInfoCopy.WorkTimeSet.StartTime = {...WorkSpaceInfo.WorkTimeSet.StartTime}
+            // WorkSpaceInfoCopy.WorkTimeSet.EndTime = {...WorkSpaceInfo.WorkTimeSet.EndTime}
+            // WorkSpaceInfoCopy.WorkTimeSet.WorkFor = {...WorkSpaceInfo.WorkTimeSet.WorkFor}
+            // WorkSpaceInfoCopy.WorkTimeSet.WorkingForGetter = {...WorkSpaceInfo.WorkTimeSet.WorkingForGetter}
+            
+
+            window.w = {WorkSpace}
