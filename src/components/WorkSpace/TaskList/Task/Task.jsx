@@ -1,4 +1,4 @@
-
+import React from 'react'
 import s from './Task.module.css'
 
 
@@ -12,7 +12,7 @@ const Task = (props) => {
                 <div><input type="checkbox" /> </div>
                 <div >
                     <div class="close" hidden = {props.Hidden}>
-                       <input onClick = {props.deleteTask(props.index)}   type="submit" value='delete'/>
+                       <input onClick = {() => props.deleteTask(props.index)}   type="button" value='delete'/>
                     </div>
                 </div>
             </div>

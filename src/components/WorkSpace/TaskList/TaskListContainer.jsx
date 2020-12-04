@@ -1,7 +1,7 @@
 
 import TaskList from './TaskList'
 import { connect } from 'react-redux'
-import { AddTaskActionCreator, EditActionCreator, deleteTaskActionCreator } from '../../rstore/WorkSpaceReducer'
+import {setNewTAVActionCreator, AddTaskActionCreator, EditActionCreator, deleteTaskActionCreator } from '../../rstore/WorkSpaceReducer'
 
 
 let mapStateToProps = (state) => {
@@ -12,7 +12,7 @@ let mapStateToProps = (state) => {
 }
 
 let mapDispatchToProps = (dispatch) => {
-    debugger
+    
     return {
         addTask : (m) => {  
             dispatch(AddTaskActionCreator(m))
@@ -23,9 +23,12 @@ let mapDispatchToProps = (dispatch) => {
             
             deleteTask : (m) => {
                 const m1 = deleteTaskActionCreator(m)
-                dispatch(m1 )
+                dispatch(m1)
+            },
+            setNewTAV : (v) => {
+                dispatch(setNewTAVActionCreator(v))
             }
-        
+            
         
     }
 }

@@ -6,6 +6,7 @@ import ProfileContainer from './components/Profile/ProfileContainer'
 import Navbar from './components/NavBar/NavBar';
 import Settings from './components/Settings/Settings';
 import WorkSpace from './components/WorkSpace/WorkSpace';
+import EmployeeContainer from './components/Employee/EmplyeeContainer';
 
 const  App = () => {
   return (
@@ -20,6 +21,10 @@ const  App = () => {
 
           <Route className='item'  path = '/workspace' render ={ () => 
           <WorkSpace/>}/>
+
+          <Route className='item'  path = '/employee' render ={ () => 
+          <EmployeeContainer/>}/>
+
           <Route className='item' path = '/settings' render = {() =>
           <Settings/>} />
           </div>

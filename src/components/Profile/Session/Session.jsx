@@ -1,4 +1,5 @@
 import s from './Session.module.css'
+import React from 'react'
 
 const Session = (props) => {
 
