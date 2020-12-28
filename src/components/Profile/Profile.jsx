@@ -1,8 +1,7 @@
 import s from './Profile.module.css'
 import Schedule from './Schedule/Schedule'
 import Session from './Session/Session'
-import React from 'react'
-
+import UserDefaultPhoto from '../../images/DefaultAvatar.jpg'
 //const showAllSeanses
 // const showMySchedule
 
@@ -11,17 +10,20 @@ import React from 'react'
 
 const Profile = (props) => {
     
+   
+
     let showSchedule_ = props.WeekSchedule.map((obj) =>
         <Schedule day={obj.day} Time={obj.Time} />)
     let showSessions_ = props.SeansList.map((obj,index) =>
         <Session index = {index} obj={obj} />)
 
- 
-    
+ // className={s.wrapForB}
     
     return (
-        <div className={s.Profile}>
-            <div className={s.wrapForB}>
+        <div className={s.Profile}>            
+            {props.match.params.userId === undefined ? <div>
+                <div>
+            <div className = {s.wrapForB}>
                 <div>
                     {props.name}  {props.surname}
                     <div></div>
@@ -42,9 +44,20 @@ const Profile = (props) => {
                 </div>}
                     
                 </div>
+            </div> 
             </div>
+            </div>
+            :
+             <div className ={s.profileEmp}>
+                <img className = {s.profImage} 
+                 src={Object.keys(props.profile1).length !== 0?(props.profile1.photos.small?props.profile1.photos.small :UserDefaultPhoto ):null  } alt="UserPhoto"/>
+                 <div>
+                 {props.profile1.fullName}
+                 </div>
+            </div>}
+       
+       </div>
 
-        </div>
     )
 }
 

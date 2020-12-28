@@ -1,0 +1,19 @@
+.LogWrapper{
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 250px 250px 20px 100px;
+    grid-template-rows: 100px;
+}
+.ToCentre{
+    text-align: center;
+}
+.Login {
+    background-color: cadetblue;
+    margin: 10px;
+    padding: 10px;
+}
+.toRegister{
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}

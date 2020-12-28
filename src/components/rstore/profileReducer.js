@@ -2,7 +2,8 @@
 
 const sessions = 'sessions'
 const schedules = 'schedules'
-
+const setUserToProfile = 'setUserToProfile'
+const isUserIdSet = 'isUserIdSet'
 
 let Profile = {
     WeekSchedule : [
@@ -16,8 +17,10 @@ let Profile = {
     ],
 
     SeansList : [
-        {startTime : '08:00', endTime : '19:00', howMuch : '11:00', date : '11.07'},
-        {startTime : '08:00', endTime : '19:00', howMuch : '11:00', date : '11.08'}
+        {startTime : {hours : 1, minutes : 1, seconds : 1}, 
+        endTime : {hours : 1, minutes : 1, seconds : 1}, 
+        howMuch : {hours : 1, minutes : 1, seconds : 1},
+        date : {day : 1, month : 1, year : 1}},
     ],
     TotalWorkTime : {
         hours : '18',
@@ -29,7 +32,9 @@ let Profile = {
     surname : 'Kushnir',
     profession : 'Front end Junior Developper',
     hidesession : true,
-    hideschedule : true
+    hideschedule : true,
+    profile1 : {},
+    userIdIsSet : null
 }
 
 window.p = Profile
@@ -37,7 +42,6 @@ window.p = Profile
 
 
 const ProfileReducer = (ProfileInfo = Profile, action) => {
-
 
     switch (action.type) {
         
@@ -47,6 +51,7 @@ const ProfileReducer = (ProfileInfo = Profile, action) => {
                     SeansList  : [...ProfileInfo.SeansList],
                     hidesession : !ProfileInfo.hidesession
             }
+
         case schedules:
         
             return  {...ProfileInfo, 
@@ -54,12 +59,30 @@ const ProfileReducer = (ProfileInfo = Profile, action) => {
                 hideschedule : !ProfileInfo.hideschedule
             }
 
+        case setUserToProfile : {
+
+            return {
+                ...ProfileInfo,
+                profile1 : {...action.profileById}
+            }
+        }
+        
+        case isUserIdSet: {
+
+            return {
+                ...ProfileInfo,
+                userIdIsSet : !action.userId ? false : true 
+            }
+        }
+
         default:
             return ProfileInfo
     }
 }
 export const showScheduleActionCreator = () => ({ type: schedules})
 export const showSessionsActionCreator = () => ({ type: sessions})
+export const setUserToProfileAC = (profileById) => ({ type: setUserToProfile, profileById : profileById})
+export const sendingUserIdOnCheckAC = (userId) => ({ type: isUserIdSet, userId })
 
 
 export default ProfileReducer

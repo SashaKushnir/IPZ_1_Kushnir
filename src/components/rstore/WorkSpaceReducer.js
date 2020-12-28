@@ -15,6 +15,12 @@ const setNewTAV = 'setNewTAV'
 
 
 let WorkSpace = {
+    SeansList : [
+        {startTime : {hours : 8, minutes : 0, seconds : 0}, 
+        endTime : {hours : 19, minutes : 0, seconds : 0}, 
+        howMuch : {hours : 11, minutes : 0, seconds : 0},
+        date : {day : 7, month : 11, year : 2020}},
+    ],
     WorkTimeSet: {
         StartTime: {
             hours: '00',
@@ -89,6 +95,11 @@ const WorkSpaceInfoReducer = (WorkSpaceInfo = WorkSpace, action) => {
         case setEndWorkTime:
             WorkSpaceInfoCopy = {
                 ...WorkSpaceInfo,
+                SeansList : [...WorkSpaceInfo.SeansList,
+                     {startTime : {...WorkSpaceInfo.SeansList.startTime},
+                      endTime : {...WorkSpaceInfo.SeansList.endTime}, 
+                      howMuch : {...WorkSpaceInfo.SeansList.howMuch}, 
+                      date : {...WorkSpaceInfo.SeansList.date}}],
                 WorkTimeSet: {
                     ...WorkSpaceInfo.WorkTimeSet,
                     EndTime: { ...WorkSpaceInfo.WorkTimeSet.EndTime },
@@ -96,11 +107,30 @@ const WorkSpaceInfoReducer = (WorkSpaceInfo = WorkSpace, action) => {
                 }
 
             }
-
-            WorkSpaceInfoCopy.WorkTimeSet.EndTime.hours = new Date().getHours()
-            WorkSpaceInfoCopy.WorkTimeSet.EndTime.minutes = new Date().getMinutes()
-            WorkSpaceInfoCopy.WorkTimeSet.EndTime.seconds = new Date().getSeconds()
+            let date = new Date()
+            let hours = new Date().getHours()
+            let minutes = new Date().getMinutes()
+            let seconds = new Date().getSeconds()
+            WorkSpaceInfoCopy.WorkTimeSet.EndTime.hours = hours
+            WorkSpaceInfoCopy.WorkTimeSet.EndTime.minutes = minutes
+            WorkSpaceInfoCopy.WorkTimeSet.EndTime.seconds = seconds
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].startTime.hours = WorkSpaceInfoCopy.WorkTimeSet.StartTime.hours 
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].startTime.minutes = WorkSpaceInfoCopy.WorkTimeSet.StartTime.minutes
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].startTime.seconds = WorkSpaceInfoCopy.WorkTimeSet.StartTime.seconds
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].endTime.hours = hours
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].endTime.minutes = minutes
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].endTime.seconds = seconds
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].date.day = date.getDate() 
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].date.month = date.getMonth() + 1
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].date.year = date.getFullYear()
+      
+            WorkSpaceInfoCopy.SeansList.endTime
+            WorkSpaceInfoCopy.SeansList.howMuch
+            WorkSpaceInfoCopy.SeansList.date
             WorkSpaceInfoCopy.WorkTimeSet.WorkingForGetter()
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].howMuch.hours = WorkSpaceInfoCopy.WorkTimeSet.WorkFor.hours
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].howMuch.minutes = WorkSpaceInfoCopy.WorkTimeSet.WorkFor.minutes
+            WorkSpaceInfoCopy.SeansList[WorkSpaceInfoCopy.SeansList.length - 1].howMuch.seconds = WorkSpaceInfoCopy.WorkTimeSet.WorkFor.seconds
             WorkSpaceInfoCopy.WorkTimeSet.startButtomEnable = false
             WorkSpaceInfoCopy.WorkTimeSet.endButtomEnable = true
             WorkSpaceInfoCopy.WorkTimeSet.resetButtom = false

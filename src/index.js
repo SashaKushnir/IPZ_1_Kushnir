@@ -10,7 +10,7 @@ import {Provider} from 'react-redux'
   ReactDOM.render(
     <React.StrictMode>
       <Provider store = {rstore}>
-      <App/>
+      <App store = {rstore.getState().Settins}/>
       </Provider>
     </React.StrictMode>
     ,

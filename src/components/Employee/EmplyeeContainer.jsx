@@ -21,7 +21,7 @@ class EmployeeAPIContainer extends React.Component {
     changeCurrentPage_ = (index) => {
         this.props.toFetch()
         this.props.changeCurrentPage(index)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentEmployeePage}&count=${this.props.pageNumber}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${index}&count=${this.props.pageNumber}`)
         .then(response => {
             this.props.setEmployeeByServer(response.data.items)
             this.props.stopFetch()

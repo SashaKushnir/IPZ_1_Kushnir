@@ -1,8 +1,36 @@
-
-import { showScheduleActionCreator, showSessionsActionCreator } from '../rstore/profileReducer'
+import React from 'react'
+import { sendingUserIdOnCheckAC, setUserToProfileAC, showScheduleActionCreator, showSessionsActionCreator } from '../rstore/profileReducer'
 import Profile from './Profile'
 import { connect } from 'react-redux'
+import Axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
+
+
+class ProfileAPIContainer extends React.Component {
+   
+    componentDidMount = () => {
+      
+        let userId = this.props.match.params.userId
+        Axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        .then (response => {
+            console.log(response.data)
+           this.props.setUserToProfile(response.data)      
+           this.props.sendingUserIdOnCheck(userId) 
+        })
+
+
+    }
+
+    render () {
+
+        return (
+            <div>
+                <Profile {...this.props}/>
+            </div>
+        )
+    }
+}
 
 
 const mapStateToProps = (state) => {
@@ -13,8 +41,10 @@ const mapStateToProps = (state) => {
         profession: state.ProfileInfo.profession,
         name: state.ProfileInfo.name,
         surname: state.ProfileInfo.surname,
-        SeansList: state.ProfileInfo.SeansList,
-        WeekSchedule: state.ProfileInfo.WeekSchedule
+        WeekSchedule: state.ProfileInfo.WeekSchedule,
+        profile1 : state.ProfileInfo.profile1,
+        userIdIsSet : state.ProfileInfo.userIdIsSet,
+        SeansList : state.WorkSpaceInfo.SeansList 
     }
 }
 
@@ -31,11 +61,18 @@ let mapDispatchToProps = (dispatch) => {
         showsessions: () => {
          
             dispatch(showSessionsActionCreator())
+        },
+        setUserToProfile : (profileobj) => {
+            dispatch(setUserToProfileAC(profileobj))
+        },
+        sendingUserIdOnCheck : (userId) => {
+            dispatch(sendingUserIdOnCheckAC(userId))
         }
     }
 }
 
-const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile)
+let WithRouteProfileComponent = withRouter(ProfileAPIContainer)
+const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(WithRouteProfileComponent)
 
 
 export default ProfileContainer

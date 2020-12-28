@@ -1,17 +1,8 @@
 
 import React from 'react'
 import s from './Employee.module.css'
-
-
-// followed: false
-// id: 12996
-// name: "Sanya07"
-// photos:
-// large: null
-// small: null
-
-// status: null
-// uniqueUrlName: null
+import EmployeeDefaultPhoro from '../../images/DefaultAvatar.jpg'
+import {NavLink} from 'react-router-dom'
 
 
 const Employee = (props) => {
@@ -29,6 +20,17 @@ const Employee = (props) => {
             }
             pageNumberItems[i] = '...'
         }
+        else if ((totEmpP % n === 0) && (curEmpP === totEmpP - n )) {
+            i = curEmpP % n === 0 ? curEmpP - n + 1 : curEmpP - curEmpP % n + 1
+            pageNumberItems[i - 1] = '...'
+
+            for (i; i <= (curEmpP % n !== 0 ? curEmpP + n - curEmpP % n : curEmpP); i++) {
+
+                pageNumberItems[i] = i
+            }
+            pageNumberItems[i] = '...'
+        }
+    //    else if ((totEmpP % n === 0) && (curEmpP === totEmpP)) 
         else if (curEmpP > ((totEmpP % n !== 0) ? (totEmpP - totEmpP % n ) : (totEmpP - n - 1))) {
 
 
@@ -56,17 +58,25 @@ const Employee = (props) => {
     return (
 
        
-            <div   className={s.EmployeeItemWrapper}>
+            <div  className={s.EmployeeItemWrapper}>
              
              
             Total Employees : {props.totalEmployeeItems}
-
+        <div className={s.item}>
+        <input  type='buttom'/>
+        </div>
             {
                 props.EmployeeList.map(e => {
-                    return (<div className={s.EmployeeItem}>
-                        {e.id} , {e.name} , {e.status}
-                    </div>)
-                  })
+                    return (
+                    <NavLink className={s.noStyles} to =  {'./_profile/' + e.id}>
+                    <div className={s.EmployeeItem}>
+                        <img  className = {s.imgItem} src = {e.photos.large !== null ? e.photos.large : EmployeeDefaultPhoro} alt = 'Avatar'/> 
+                        <div>{e.name} , 
+                        {e.status}
+                        </div>
+                    </div>
+                    </NavLink>
+                  )})
             }
 
 
@@ -83,7 +93,7 @@ const Employee = (props) => {
                     </span>
                 )
             })}
-            {curEmpP <= totEmpP - totEmpP % 5 ? <span onClick={() => props.changeCurrentPage_(totEmpP)}>
+            {curEmpP <= ((totEmpP % n === 0) ? totEmpP - n : totEmpP - totEmpP % n  )? <span onClick={() => props.changeCurrentPage_(totEmpP)}>
                 {totEmpP}
             </span> : null}
         </div>
